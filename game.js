@@ -27,6 +27,7 @@ var map;
 var tileset;
 var layer;
 var controls;
+var selectedTile;
 
 function preload() { 
   this.load.image('background', 'assets/images/background.png');
@@ -85,7 +86,7 @@ function update(time,delta) {
           console.log("tile position : ",pointerTile.x, pointerTile.y)
           console.log(selectedTile)
         }
-        else if (selectedTile !== undefined)
+        else if (selectedTile)
         {
           console.log("trying to put at ", pointerTile.x, pointerTile.y)
           map.putTileAt(selectedTile, pointerTile.x, pointerTile.y)
