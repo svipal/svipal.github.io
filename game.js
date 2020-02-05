@@ -36,8 +36,6 @@ function preload() {
   this.load.tilemapTiledJSON('map', 'assets/tilemaps/testfinal.json'); }
 
 
-
-
 function create() { 
   const backgroundImage = this.add.image(0, 0,'background').setOrigin(0.5, 0);
   backgroundImage.setScale(2, 0.8);
@@ -63,7 +61,11 @@ function create() {
   };
   controls = new Phaser.Cameras.Controls.FixedKeyControl(controlConfig);
 
-  shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT);
+  shiftKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SHIFT)
+
+  ctrlKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.CTRL)
+
+  altKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.ALT)
 }
 
 function update(time,delta) {
@@ -78,19 +80,21 @@ function update(time,delta) {
 
   marker.x = markerP.x
   marker.y = markerP.y
-  if (this.input.manager.activePointer.isDown)
-    {
-        if (shiftKey.isDown)
-        {
-          selectedTile = map.getTileAt(pointerTile.x, pointerTile.y)
-          console.log("tile position : ",pointerTile.x, pointerTile.y)
-          console.log(selectedTile)
-        }
-        else if (selectedTile)
-        {
-          console.log("trying to put at ", pointerTile.x, pointerTile.y)
-          map.putTileAt(selectedTile, pointerTile.x, pointerTile.y)
-        }
+  if (this.input.manager.activePointer.isDown) {
+    if (shiftKey.isDown) {
+      selectedTile = map.getTileAt(pointerTile.x, pointerTile.y)
+      console.log("tile position : ",pointerTile.x, pointerTile.y)
+      console.log(selectedTile)
+    } else if (ctrlKey.isDown) {
+      var dtile = map.removeTileAt(pointerTile.x, pointerTile.y,true)
+      console.log("deleted tile", dtile)
+    } else if (altKey.isDown) {
+      console.log(map.getTileAt(pointerTile.x, pointerTile.y))
+    } else if (selectedTile) {
+      console.log("trying to put at ", pointerTile.x, pointerTile.y)
+      map.putTileAt(selectedTile, pointerTile.x, pointerTile.y)
     }
+  }
+
  }
 
