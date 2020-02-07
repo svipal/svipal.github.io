@@ -44,10 +44,14 @@ function create() {
   tileset = map.addTilesetImage('newtileset', 'tiles');
   const layer = map.createDynamicLayer('Calque 1', tileset, 0, 200);
 
+  layer.isoCullDistances.x = -1
+  layer.isoCullDistances.y = -1
+  
   marker = this.add.graphics();
   marker.lineStyle(2, 0x000000, 1);
   marker.strokeRect(0, 0, map.tileWidth, map.tileHeight);
 
+  
   this.cameras.main.centerOn(0,config.height/2)
 
   var cursors = this.input.keyboard.createCursorKeys();
@@ -83,15 +87,15 @@ function update(time,delta) {
   if (this.input.manager.activePointer.isDown) {
     if (shiftKey.isDown) {
       selectedTile = map.getTileAt(pointerTile.x, pointerTile.y)
-      console.log("tile position : ",pointerTile.x, pointerTile.y)
-      console.log(selectedTile)
+      // console.log("tile position : ",pointerTile.x, pointerTile.y)
+      // console.log(selectedTile)
     } else if (ctrlKey.isDown) {
       var dtile = map.removeTileAt(pointerTile.x, pointerTile.y)
-      console.log("deleted tile", dtile)
+      // console.log("deleted tile", dtile)
     } else if (altKey.isDown) {
       console.log(map.getTileAt(pointerTile.x, pointerTile.y))
     } else if (selectedTile) {
-      console.log("trying to put at ", pointerTile.x, pointerTile.y)
+      // console.log("trying to put at ", pointerTile.x, pointerTile.y)
       map.putTileAt(selectedTile, pointerTile.x, pointerTile.y)
     }
   }
