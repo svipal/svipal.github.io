@@ -86,7 +86,7 @@ function update(time,delta) {
       console.log("tile position : ",pointerTile.x, pointerTile.y)
       console.log(selectedTile)
     } else if (ctrlKey.isDown) {
-      var dtile = map.removeTileAt(pointerTile.x, pointerTile.y,true)
+      var dtile = map.removeTileAt(pointerTile.x, pointerTile.y)
       console.log("deleted tile", dtile)
     } else if (altKey.isDown) {
       console.log(map.getTileAt(pointerTile.x, pointerTile.y))
