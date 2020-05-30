@@ -37,7 +37,7 @@ function preload() {
 
 
 function create() { 
-  const backgroundImage = this.add.image(0, 0,'background').setOrigin(0, 0);
+  const backgroundImage = this.add.image(0, 0,'background').setOrigin(0.5,0);
   backgroundImage.setScale(2, 0.8);
  
   map = this.make.tilemap({ key: 'map' });
