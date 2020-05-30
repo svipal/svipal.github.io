@@ -1,5 +1,5 @@
 const config = {
-  type: Phaser.WEBGL,
+  type: Phaser.CANVAS,
   parent: 'game',
   width: 800,
   height: 640,
@@ -37,15 +37,14 @@ function preload() {
 
 
 function create() { 
-  const backgroundImage = this.add.image(0, 0,'background').setOrigin(0.5, 0);
+  const backgroundImage = this.add.image(0, 0,'background').setOrigin(0, 0);
   backgroundImage.setScale(2, 0.8);
  
   map = this.make.tilemap({ key: 'map' });
   tileset = map.addTilesetImage('newtileset', 'tiles');
-  const layer = map.createDynamicLayer('Calque 1', tileset, 0, 200);
-
-  layer.isoCullDistances.x = -1
-  layer.isoCullDistances.y = -1
+  const layer = map.createStaticLayer('Calque 1', tileset, 0, 200);
+  layer.skipCull = true
+  console.log("lel",layer)
   
   marker = this.add.graphics();
   marker.lineStyle(2, 0x000000, 1);
@@ -77,11 +76,16 @@ function update(time,delta) {
 
   var worldPoint = this.input.activePointer.positionToCamera(this.cameras.main);
 
-  // Rounds down to nearest tile
+  // Rounds down to neare st tile
   var pointerTile = map.worldToTileXY(worldPoint.x,worldPoint.y,true);
+ 
   // Snap to tile coordinates, but in world space
   markerP = map.tileToWorldXY(pointerTile.x,pointerTile.y);
-
+ 
+  if (shiftKey.isDown) {
+    console.log(pointerTile)
+    console.log(" tw", markerP)
+  }
   marker.x = markerP.x
   marker.y = markerP.y
   if (this.input.manager.activePointer.isDown) {
